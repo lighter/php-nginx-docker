@@ -1,0 +1,18 @@
+version: '2'
+services:
+    php:
+        build: ./php/
+        volumes:
+            - ./code:/var/www/html
+            - ./php/log/php_log:/var/log/php_log:rw
+    nginx:
+        build: ./nginx/
+        volumes:
+            - ./nginx/log:/var/log/nginx:rw
+        links:
+            - php:php.engine
+        volumes_from:
+            - php
+        ports:
+            - 8888:80
+
